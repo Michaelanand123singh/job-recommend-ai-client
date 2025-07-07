@@ -151,6 +151,7 @@ const JobCard = ({ job }) => {
           <button className="px-4 py-2 text-sm font-medium text-blue-600 bg-blue-50 rounded-lg hover:bg-blue-100 transition-colors">
             Save Job
           </button>
+          
           <a
             href={job.url || '#'}
             target="_blank"

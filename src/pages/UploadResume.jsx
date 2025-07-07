@@ -92,17 +92,34 @@ const Upload = () => {
         });
       }, 200);
 
+      console.log('🚀 Upload: Starting file upload...');
       const result = await apiService.uploadResume(file);
+      
+      console.log('📦 Upload: API result received:', result);
+      console.log('📦 Upload: Result type:', typeof result);
+      console.log('📦 Upload: Result keys:', Object.keys(result || {}));
+      console.log('📦 Upload: Has matches?', !!result?.matches);
       
       clearInterval(progressInterval);
       setUploadProgress(100);
       
       // Navigate to results with the response data
       setTimeout(() => {
-        navigate('/results', { state: { results: result } });
+        console.log('🎯 Upload: Navigating to results with:', result);
+        navigate('/results', { 
+          state: { 
+            results: result,
+            uploadedFile: {
+              name: file.name,
+              size: file.size,
+              type: file.type
+            }
+          } 
+        });
       }, 500);
       
     } catch (err) {
+      console.error('❌ Upload: Error occurred:', err);
       setError(err.message || 'Failed to upload and process resume. Please try again.');
       setUploadProgress(0);
     } finally {
